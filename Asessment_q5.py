@@ -4,6 +4,8 @@ pib = open("Assessment_PIBs.csv", 'r')
 
 pibs = pib.read()
 
+pib.close()
+
 pibs = pibs.splitlines()
 
 # Definindo o cabeçalho e separando-o dos valores que serão manipulados
@@ -21,7 +23,10 @@ for i in range(0, len(pibs)):
 
 for item in range(1, 9):
   anos.append(cabecalho[item])
-# Definindo nossa Função de busca de país e ano:
+
+ 
+
+# Definindo nossa PRIMEIRA Função: busca de país e ano;
 def pais_e_ano():
   pais = input("Digite o País que se deseja verificar o PIB: ")
   if pais in paises:
@@ -32,7 +37,6 @@ def pais_e_ano():
       print("O ano não está disponível!")
   else:
     print("País indisponível")
- 
 
 pais_e_ano()
 
@@ -45,8 +49,17 @@ def variacao_periodo(paises, anos, pibs):
 variacao_periodo(paises, anos, pibs)
 
 def graf_plot(pibs, anos, paises):
-  pais = input("Escolha um país para ver o gráfico de variação do PIB (2013 a 2020): ")
+
+  pais = input("\nEscolha um país para ver o gráfico de variação do PIB (2013 a 2020): ")
+  for i in range(0, 8):
+    pibs[paises.index(pais)][i] = float(pibs[paises.index(pais)][i])
+  print(pibs[paises.index(pais)])
   plt.plot(anos, pibs[paises.index(pais)])
-  plt.show
+  plt.title('Evolução do Pib')
+  plt.xlabel('Anos')
+  plt.ylabel('PIB em US$ trilhões')
+  plt.ylim([min(pibs[paises.index(pais)]), max(pibs[paises.index(pais)])])  
+
+  plt.show()
     
 graf_plot(pibs, anos, paises)
